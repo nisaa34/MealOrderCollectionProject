@@ -1,0 +1,44 @@
+@model List<MealOrder>
+
+<h2>All Meal Orders</h2>
+<p class="text-muted">Total number of meal orders in system: <strong>@Model.Count</strong></p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Student Name</th>
+            <th>Meal Name</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.OrderID</td>
+                <td>@order.StudentName</td>
+                <td>@order.MealName</td>
+                <td>
+                    @if (order.Collected)
+                    {
+                        <span class="badge bg-success">Collected</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-warning text-dark">Not Collected</span>
+                    }
+                </td>
+                <td>
+                    <a href="@Url.Action("Details", "Order", new { id = order.OrderID })" class="btn btn-primary btn-sm">View Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="mt-3">
+    <a href="/Home/Index" class="btn btn-secondary">Back to Home Page</a>
+    <a href="/Order/Collect" class="btn btn-success ms-2">Collect Meal</a>
+</div>

@@ -1,0 +1,26 @@
+@model MealOrder
+
+<h2>Order Details (Order ID: @Model.OrderID)</h2>
+
+<div class="card p-4 mt-3" style="max-width: 500px;">
+    <p><strong>Student Name:</strong> @Model.StudentName</p>
+    <p><strong>Meal Name:</strong> @Model.MealName</p>
+    <p><strong>Collection Status:</strong> 
+        @if (Model.Collected)
+        {
+            <span class="text-success fw-bold">Collected</span>
+        }
+        else
+        {
+            <span class="text-danger fw-bold">Not Collected</span>
+        }
+    </p>
+    <p><strong>Collected At:</strong> 
+        @(Model.CollectedAt.HasValue ? Model.CollectedAt.Value.ToString("dd MMMM yyyy - HH:mm") : "Not collected yet.")
+    </p>
+</div>
+
+<div class="mt-4">
+    <a href="/Order/List" class="btn btn-primary">Back to All Orders</a>
+    <a href="/Home/Index" class="btn btn-secondary ms-2">Back to Home</a>
+</div>

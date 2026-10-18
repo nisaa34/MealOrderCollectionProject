@@ -1,0 +1,45 @@
+
+@model List<MealOrder>
+
+<div class="alert alert-info">
+    <h2>Cafeteria: @ViewData["CafeteriaName"]</h2>
+    <p>Today's Date: @ViewData["TodayDate"]</p>
+    <p>Total Collected Meal Orders: <strong>@ViewData["CollectedOrdersCount"]</strong></p>
+</div>
+
+<div class="mb-4">
+    <a href="/Order/List" class="btn btn-primary me-2">View All Meal Orders</a>
+    <a href="/Order/Collect" class="btn btn-success">Collect a Meal (Enter Order ID)</a>
+</div>
+
+<h3 class="mt-4">List of Collected Meal Orders</h3>
+@if (Model.Count == 0)
+{
+    <p class="text-muted">No meals collected yet today.</p>
+}
+else
+{
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Student Name</th>
+                <th>Meal Name</th>
+                <th>Collected At</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.OrderID</td>
+                    <td>@order.StudentName</td>
+                    <td>@order.MealName</td>
+                    <td>@order.CollectedAt?.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td><a href="@Url.Action("Details", "Order", new { id = order.OrderID })" class="btn btn-sm btn-outline-primary">View Details</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
